@@ -1,0 +1,5 @@
+name: flio
+
+include:
+  - "common/networks.yml"
+  - "keycloak/docker-compose.yml"

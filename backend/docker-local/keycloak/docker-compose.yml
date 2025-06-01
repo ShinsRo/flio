@@ -1,0 +1,16 @@
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.2.5
+    ports:
+      - "20080:8080"
+      - "20433:8443"
+    environment:
+      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=admin
+    #      - KC_HEALTH_ENABLED=true
+    #      - KC_LOG_LEVEL=info
+    #      - KC_DB:
+    #      - KC_DB_URL: jdbc:temp://
+    #      - KC_DB_USERNAME:
+    #      - KC_DB_PASSWORD:
+    command: [ "start-dev", "--http-port", "8080", "--https-port", "8443" ]
