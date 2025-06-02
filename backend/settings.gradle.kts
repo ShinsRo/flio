@@ -1,2 +1,6 @@
 rootProject.name = "flio"
-include("app")
+
+include("flio-app:web")
+include("flio-app:batch")
+
+include("flio-core")

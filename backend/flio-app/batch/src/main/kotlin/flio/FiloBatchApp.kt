@@ -5,8 +5,8 @@ import org.springframework.boot.runApplication
 
 
 @SpringBootApplication
-class FiloBootstrap
+class FiloBatchApp
 
 fun main(args: Array<String>) {
-    runApplication<FiloBootstrap>(*args)
+    runApplication<FiloBatchApp>(*args)
 }
