@@ -1,9 +1,10 @@
 services:
   keycloak:
     image: quay.io/keycloak/keycloak:26.2.5
-    ports:
-      - "20080:8080"
-      - "20433:8443"
+    ports: [ "20080:8080", "20433:8443" ]
+    volumes:
+      - ./volumes/data:/opt/keycloak/data
+      - ./volumes/data/standalone:/opt/jboss/keycloak/standalone/data
     environment:
       - KC_BOOTSTRAP_ADMIN_USERNAME=admin
       - KC_BOOTSTRAP_ADMIN_PASSWORD=admin
