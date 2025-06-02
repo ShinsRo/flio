@@ -1,9 +1,9 @@
 @file:Suppress("NonAsciiCharacters")
 
-package flio.auth.keycloak
+package flio.security.oauth2.keycloak
 
-import flio.auth.keycloak.KeycloakJwtTokenConverter.KeycloakClaims
-import flio.auth.keycloak.KeycloakJwtTokenConverter.KeycloakRolePrefix
+import flio.security.oauth2.keycloak.KeycloakJwtTokenConverter.KeycloakClaims
+import flio.security.oauth2.keycloak.KeycloakJwtTokenConverter.KeycloakRolePrefix
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest

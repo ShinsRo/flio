@@ -1,4 +1,4 @@
-package flio.auth.keycloak
+package flio.security.oauth2.keycloak
 
 object KeycloakJwtTokenTestData {
     /**

@@ -1,4 +1,4 @@
-package flio.auth
+package flio.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -28,8 +28,6 @@ class SecurityConfig {
         authorizeHttpRequests {
             authorize("/**", permitAll)
             authorize("/private/**", authenticated)
-//            authorize("/one", permitAll)
-//            authorize("/two", authenticated)
         }
     }
 

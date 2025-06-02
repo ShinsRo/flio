@@ -1,4 +1,4 @@
-package flio.auth.keycloak
+package flio.security.oauth2.keycloak
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -66,7 +66,7 @@ class KeycloakJwtTokenConverter : Converter<Jwt, JwtAuthenticationToken> {
     }
 
     private val Jwt.principal: String?
-        get() = this.getClaim(KeycloakClaims.PREFERRED_USERNAME)
+        get() = this.getClaim(flio.security.oauth2.keycloak.KeycloakJwtTokenConverter.KeycloakClaims.PREFERRED_USERNAME)
             ?: this.getClaim(JwtClaimNames.SUB)
 
     object KeycloakClaims {

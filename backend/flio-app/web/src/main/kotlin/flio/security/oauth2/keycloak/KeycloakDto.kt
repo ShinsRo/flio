@@ -1,4 +1,4 @@
-package flio.auth.keycloak
+package flio.security.oauth2.keycloak
 
 data class RealmAccess(val roles: List<String> = emptyList())
 data class ResourceAccess(val account: ResourceAccount = ResourceAccount())
