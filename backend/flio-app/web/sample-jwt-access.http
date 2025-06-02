@@ -2,13 +2,13 @@
 POST http://localhost:20080/realms/temp/protocol/openid-connect/token
 Content-Type: application/x-www-form-urlencoded
 
-client_id = temp-local
+client_id=temp-local
     &
-grant_type = password
+grant_type=password
     &
-username = temp
+username=temp
     &
-password = 0000
+password=0000
 
 > {%
     client.global.set("access_token", response.body["access_token"])
