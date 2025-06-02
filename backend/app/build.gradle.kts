@@ -8,11 +8,15 @@ repositories {
 }
 
 dependencies {
+    implementation(libs.kotlin.logging)
+
     implementation(libs.spring.boot.starter.web)
-    implementation(libs.spring.boot.starter.test)
+    implementation(libs.spring.boot.starter.security)
+    implementation(libs.spring.boot.starter.oauth2.resource.server)
 
     testRuntimeOnly(libs.kotest.runner.junit5)
     testImplementation(libs.kotest.assertions.core)
+    testImplementation(libs.spring.boot.starter.test)
 }
 
 java {
