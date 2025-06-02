@@ -1,5 +1,6 @@
 package flio.security.oauth2.keycloak
 
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.core.convert.converter.Converter
@@ -13,8 +14,12 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 private val log = KotlinLogging.logger { }
 
 class KeycloakJwtTokenConverter : Converter<Jwt, JwtAuthenticationToken> {
-    private val objectMapper = ObjectMapper()
-    private val jwtGrantedAuthoritiesConverter = JwtGrantedAuthoritiesConverter()
+    private val objectMapper = ObjectMapper().apply {
+        configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true)
+    }
+
+    private val defaultConverter = JwtGrantedAuthoritiesConverter()
 
     override fun convert(jwt: Jwt): JwtAuthenticationToken {
         val authorities = listOf(
@@ -28,7 +33,7 @@ class KeycloakJwtTokenConverter : Converter<Jwt, JwtAuthenticationToken> {
 
     // scope 혹은 scp 클레임을 읽어 "SCOPE_" Prefix 를 붙인 권한 객체를 반환한다. (우선순위는 scope 가 더 높다.)
     private fun extractFromScopes(jwt: Jwt): Collection<GrantedAuthority> {
-        return jwtGrantedAuthoritiesConverter.convert(jwt) ?: emptyList()
+        return defaultConverter.convert(jwt) ?: emptyList()
     }
 
     private fun extractFromRealmAccess(jwt: Jwt): Collection<GrantedAuthority> {
@@ -66,7 +71,7 @@ class KeycloakJwtTokenConverter : Converter<Jwt, JwtAuthenticationToken> {
     }
 
     private val Jwt.principal: String?
-        get() = this.getClaim(flio.security.oauth2.keycloak.KeycloakJwtTokenConverter.KeycloakClaims.PREFERRED_USERNAME)
+        get() = this.getClaim(KeycloakClaims.PREFERRED_USERNAME)
             ?: this.getClaim(JwtClaimNames.SUB)
 
     object KeycloakClaims {

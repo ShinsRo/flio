@@ -1,0 +1,28 @@
+### Token Request 요청
+POST http://localhost:20080/realms/temp/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id = temp-local
+    &
+grant_type = password
+    &
+username = temp
+    &
+password = 0000
+
+> {%
+    client.global.set("access_token", response.body["access_token"])
+    client.global.set("refresh_token", response.body["refresh_token"])
+
+    console.log(client.global.get("access_token"));
+%}
+
+### /dev/api/keycloak/public/message
+GET http://localhost:18080/dev/api/keycloak/public/message
+
+### /dev/api/keycloak/private/message without Token
+GET http://localhost:18080/dev/api/keycloak/private/message
+
+### /dev/api/keycloak/private/message with Token
+GET http://localhost:18080/dev/api/keycloak/private/message
+Authorization: Bearer {{access_token}}
