@@ -4,8 +4,8 @@ spring:
   profiles.include: jpa
 
   security.oauth2.resourceserver.jwt:
-    issuer-uri: http://localhost:20080/realms/temp
-    jwk-set-uri: http://localhost:20080/realms/temp/protocol/openid-connect/certs
+    issuer-uri: http://localhost:20080/realms/flio
+    jwk-set-uri: http://localhost:20080/realms/flio/protocol/openid-connect/certs
     # jws-algorithms: RS512                         # Trusted Alg.
     # public-key-location: hfds://my-key.pub        # JWK Set 공개 키 파일로 지정
     # audiences:                                    # aud 검증 시 대조 값
