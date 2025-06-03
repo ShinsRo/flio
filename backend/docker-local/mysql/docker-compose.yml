@@ -1,11 +1,12 @@
 services:
   mysql:
     image: mysql:8.4.5
-    ports: [23306:3306]
+    ports: [ 23306:3306 ]
     volumes:
       - ./volumes/data:/var/lib/mysql
       # - ./volumes/mysql.cnf:/etc/mysql.conf.d/mysql.cnf
       # - ./volumes/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       TZ: Asia/Seoul
+      MYSQL_DATABASE: flio
       MYSQL_ALLOW_EMPTY_PASSWORD: true
