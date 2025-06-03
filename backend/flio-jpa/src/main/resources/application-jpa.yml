@@ -1,0 +1,48 @@
+spring: # DB 공통 설정
+  sql.init.mode: never
+
+  jpa: # JPA 설정
+    open-in-view: false
+    hibernate.ddl-auto: none
+
+  # Primary DataSource 설정 (MySQL)
+  datasource.primary: &primary
+    jdbc-url: jdbc:mysql://localhost:23306/flio
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    connection-init-sql: "SELECT 1"
+
+  # 정의한 DataSource 를 Spring Property 에 바인딩
+  datasource:
+    <<: *primary
+    url: ${spring.datasource.primary.jdbc-url}
+
+  # 히카리 CP 풀 옵션 설정
+  # 풀의 적절한 옵션 값은 어플리케이션의 성격에 따라 다르므로, 앱에 따라 이하 값 조정 필요
+  datasource.hikari:
+    <<: *primary # 데이터소스 추가하게 되면 << 제거하고 커스텀 데이터소스 코드 추가
+    pool-name: PrimaryDbPool
+    maximum-pool-size: 10
+    max-lifetime: 1800000
+    idle-timeout: 600000
+    minimum-idle: 10
+    connection-timeout: 30000
+    keepalive-time: 300000 # DB 의 wait time out 값에 맞춰 설정할 것
+
+  # DB 형상관리 도구 설정
+  liquibase:
+    user: ${spring.datasource.primary.username}
+    password: ${spring.datasource.primary.password}
+    change-log: classpath:db/changelog/db.changelog-primary.yml
+
+# liquibase 가 귀찮을 경우 flyway 로 롤백할 예정
+#  flyway:
+#    enabled: true
+#    baseline-version: 20200000000000
+#    baseline-on-migrate: true
+#    out-of-order: true
+#    table: schema_version
+#    ignore-migration-patterns: "*:future"
+#
+#    locations: classpath:/db/migration
